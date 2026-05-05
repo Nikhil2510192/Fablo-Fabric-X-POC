@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+set -e
+
+echo "🚀 Starting Fabric-X network: <%= config.network.name %>"
+echo "=================================================="
+
+# Pull images first
+echo ""
+echo "📦 Pulling Fabric-X images..."
+docker pull <%= config.network.orderer.image %>
+<% config.network.organizations.forEach(function(org) { %>
+docker pull <%= org.ca.image %>
+docker pull <%= org.committer.image %>
+<% }) %>
+
+# NOTE: arma-configs/ are pre-generated using armageddon tool
+# In full Fablo integration, this would run armageddon automatically
+# See README.md — Known Limitations section
+echo ""
+echo "📋 Using pre-generated arma configs from arma-configs/"
+
+# Start network
+echo ""
+echo "🐳 Starting containers..."
+docker compose up -d
+
+echo ""
+echo "⏳ Waiting for services to initialize (30s)..."
+sleep 30
+
+echo ""
+echo "📊 Network status:"
+docker compose ps
+
+echo ""
+echo "✅ Fabric-X network <%= config.network.name %> started"
+echo ""
+echo "Useful commands:"
+echo "  docker compose logs -f                                     (all logs)"
+echo "  docker compose logs -f orderer-router.<%= config.network.name %>   (router logs)"
+echo "  docker compose logs -f committer.<%= config.network.organizations[0].domain %>  (committer logs)"
+echo "  docker compose ps                                          (service status)"
+echo "  ./stop.sh                                                  (stop network)"

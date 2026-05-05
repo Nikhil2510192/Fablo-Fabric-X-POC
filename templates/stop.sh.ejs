@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+
+echo "🛑 Stopping Fabric-X network: <%= config.network.name %>"
+echo "=================================================="
+
+docker compose down -v
+
+echo ""
+echo "✅ Network stopped and volumes removed"
+echo "   Run ./start.sh to start again"
