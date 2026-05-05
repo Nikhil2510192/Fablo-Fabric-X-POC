@@ -1,0 +1,19 @@
+{
+  "name": "fablo-fabric-x-poc",
+  "version": "0.1.0",
+  "description": "POC for Fabric-X support in Fablo",
+  "scripts": {
+    "generate": "ts-node src/generate.ts",
+    "test": "bash scripts/test.sh",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "ejs": "^3.1.9"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "ts-node": "^10.9.0",
+    "@types/ejs": "^3.1.2",
+    "@types/node": "^20.0.0"
+  }
+}

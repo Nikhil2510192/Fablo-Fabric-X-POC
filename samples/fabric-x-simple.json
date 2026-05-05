@@ -1,0 +1,35 @@
+{
+  "fabricX": {
+    "version": "1.0.0-alpha",
+    "tls": false
+  },
+  "network": {
+    "name": "fabric-x-local",
+    "orderer": {
+      "type": "arma",
+      "image": "ghcr.io/hyperledger/fabric-x-orderer:1.0.0-alpha.1",
+      "parties": 1,
+      "shards": 1,
+      "ports": {
+        "router": 7050,
+        "batcher": 7051,
+        "consenter": 7052,
+        "assembler": 7053
+      }
+    },
+    "organizations": [
+      {
+        "name": "Org1",
+        "domain": "org1.example.com",
+        "ca": {
+          "image": "hyperledger/fabric-ca:1.5",
+          "port": 7054
+        },
+        "committer": {
+          "image": "ghcr.io/hyperledger/fabric-x-committer-test-node:1.0.0-alpha",
+          "port": 7055
+        }
+      }
+    ]
+  }
+}
