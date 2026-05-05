@@ -22,12 +22,12 @@ services:
       - <%= org.name.toLowerCase() %>_ca_data:/etc/hyperledger/fabric-ca-server
     networks:
       - <%= config.network.name %>
-    healthcheck:
-      test: ["CMD", "curl", "-sf", "http://localhost:<%= org.ca.port %>/cainfo"]
+healthcheck:
+      test: ["CMD", "sh", "-c", "wget -q -O- http://localhost:<%= org.ca.port %>/cainfo || exit 1"]
       interval: 10s
       timeout: 5s
-      retries: 5
-      start_period: 15s
+      retries: 10
+      start_period: 30s
     restart: unless-stopped
 <% }) %>
 
