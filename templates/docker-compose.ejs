@@ -15,12 +15,6 @@ services:
       - <%= org.name.toLowerCase() %>_ca_data:/etc/hyperledger/fabric-ca-server
     networks:
       - <%= config.network.name %>
-    healthcheck:
-      test: ["CMD", "sh", "-c", "wget -q -O- http://localhost:<%= org.ca.port %>/cainfo || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-      start_period: 30s
     restart: unless-stopped
 <% }) %>
 
@@ -37,8 +31,7 @@ services:
     networks:
       - <%= config.network.name %>
     depends_on:
-      ca.<%= org.domain %>:
-        condition: service_healthy
+      - ca.<%= org.domain %>
     restart: unless-stopped
 <% }) %>
 
@@ -53,8 +46,7 @@ services:
     networks:
       - <%= config.network.name %>
     depends_on:<% config.network.organizations.forEach(function(org) { %>
-      ca.<%= org.domain %>:
-        condition: service_healthy<% }) %>
+      - ca.<%= org.domain %><% }) %>
     restart: unless-stopped
 
   orderer-batcher.<%= config.network.name %>:

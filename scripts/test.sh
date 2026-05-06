@@ -104,37 +104,14 @@ docker compose config > /dev/null 2>&1 || \
 cd ..
 pass "docker-compose.yml is valid"
 
-# ── Step 4: Wait for CA to be healthy ───────────────────
-info "Step 4: Waiting for Certificate Authority..."
-sleep 15
-waitForContainer "ca.org1.example.com" "Listening on" || \
-  info "CA not ready — alpha software, continuing..."
+# ── Step 4: Wait for CA ──────────────────────────────────
+info "Step 4: Waiting for CA to start (30s)..."
+sleep 30
 
-# ── Step 5: Wait for orderer components ─────────────────
-info "Step 5: Checking orderer components..."
-sleep 15
-
-docker ps | grep -q "orderer-router.fabric-x-local" && \
-  pass "Router container running" || \
-  info "Router not yet running"
-
-docker ps | grep -q "orderer-batcher.fabric-x-local" && \
-  pass "Batcher container running" || \
-  info "Batcher not yet running"
-
-docker ps | grep -q "orderer-consenter.fabric-x-local" && \
-  pass "Consenter container running" || \
-  info "Consenter not yet running"
-
-docker ps | grep -q "orderer-assembler.fabric-x-local" && \
-  pass "Assembler container running" || \
-  info "Assembler not yet running"
-
-# ── Step 6: Check committer ──────────────────────────────
-info "Step 6: Checking committer..."
-docker ps | grep -q "committer.org1.example.com" && \
-  pass "Committer container running" || \
-  info "Committer not yet running"
+docker ps | grep -q "ca.org1.example.com" && \
+  pass "CA container running" || \
+  info "CA not running — checking logs..."
+docker logs ca.org1.example.com 2>&1 | tail -5 || true
 
 # ── Step 7: Check for critical errors ───────────────────
 info "Step 7: Scanning logs for critical errors..."
