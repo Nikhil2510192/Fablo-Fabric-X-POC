@@ -193,6 +193,12 @@ docker compose ps
   }
 }
 ```
+## Sample Configs
+
+| File | Description |
+|------|-------------|
+| samples/fabric-x-simple.json | 1 org, 1 party — minimal local dev |
+| samples/fabric-x-multi-org.json | 2 orgs, 1 party — realistic setup |
 
 ---
 
@@ -240,8 +246,16 @@ trap-based cleanup, waitForContainer log checks, dumpLogs on failure.
 ### Arma Config Generation
 
 The Arma orderer requires per-node config files generated
-by the armageddon CLI tool. In this POC, placeholder configs
-are committed under arma-configs/.
+by the armageddon CLI tool. 
+In this POC, 4 placeholder configs are committed under arma-configs/:
+- router_node_config.yaml
+- batcher_node_config.yaml
+- consenter_node_config.yaml
+- assembler_node_config.yaml
+
+Structured based on the real deployment config format from
+the fabric-x-orderer repo. These are copied automatically
+into fablo-target-fabricx/arma-configs/ on generate.
 
 In a full Fablo integration:
 User defines topology in fabric-x-config.json
