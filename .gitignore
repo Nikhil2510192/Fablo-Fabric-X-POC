@@ -2,3 +2,4 @@ node_modules
 dist
 fablo-target-fabricx
 .env
+fabric-x-config.json

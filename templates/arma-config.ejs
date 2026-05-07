@@ -1,0 +1,18 @@
+<%# 
+  arma-config.ejs — NOT USED IN CURRENT POC
+
+  The Arma orderer requires per-node config files generated
+  by the armageddon CLI tool. These cannot be templated simply
+  because armageddon embeds cryptographic material and party
+  topology into each node's config during generation.
+
+  Current approach: pre-generated placeholder configs in arma-configs/
+  are copied into fablo-target-fabricx/arma-configs/ by generate.ts.
+
+  Full implementation would:
+  1. Run armageddon generate --config=input.yaml --output=arma-configs/
+  2. Template the input.yaml using EJS from fabric-x-config.json
+  3. Mount generated configs into orderer containers
+
+  This file is kept as a placeholder for that future implementation.
+%>
