@@ -5,7 +5,7 @@
 Proof of concept for adding Hyperledger Fabric-X support to Fablo.
 
 Built as part of the LFX Mentorship application for the
-[Fablo Fabric-X integration project](https://github.com/hyperledger-labs/fablo/issues/ISSUE_NUMBER).
+[Fablo Fabric-X integration project](https://github.com/LF-Decentralized-Trust-Mentorships/mentorship-program/issues/83).
 
 ---
 
@@ -310,5 +310,6 @@ Three options were evaluated:
 | B | Fork of Fablo | No — maintenance burden |
 | C | Separate engine inside Fablo | ✅ Yes |
 
+For full architecture details, integration plan, and research findings see [DESIGN.md](./DESIGN.md).
 Option C chosen because it matches the maintainer's guidance,
 follows existing Fablo patterns, and doesn't break any existing flows.
